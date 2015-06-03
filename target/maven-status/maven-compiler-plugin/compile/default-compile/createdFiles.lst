@@ -1,0 +1,13 @@
+javaeetutorial\web\websocketbot\decoders\MessageDecoder.class
+javaeetutorial\web\websocketbot\encoders\UsersMessageEncoder.class
+javaeetutorial\web\websocketbot\encoders\InfoMessageEncoder.class
+javaeetutorial\web\websocketbot\encoders\JoinMessageEncoder.class
+javaeetutorial\web\websocketbot\messages\Message.class
+javaeetutorial\web\websocketbot\messages\InfoMessage.class
+javaeetutorial\web\websocketbot\messages\JoinMessage.class
+javaeetutorial\web\websocketbot\messages\ChatMessage.class
+javaeetutorial\web\websocketbot\BotEndpoint.class
+javaeetutorial\web\websocketbot\messages\UsersMessage.class
+javaeetutorial\web\websocketbot\BotBean.class
+javaeetutorial\web\websocketbot\encoders\ChatMessageEncoder.class
+javaeetutorial\web\websocketbot\BotEndpoint$1.class

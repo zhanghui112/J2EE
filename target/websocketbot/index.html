@@ -1,0 +1,225 @@
+<!--
+
+    Copyright (c) 2014 Oracle and/or its affiliates. All rights reserved.
+
+    You may not modify, use, reproduce, or distribute this software except in
+    compliance with  the terms of the License at:
+    http://java.net/projects/javaeetutorial/pages/BerkeleyLicense
+
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>WebsocketBot</title>
+        <link rel="stylesheet" type="text/css" href="resources/css/default.css" />
+        <script type="text/javascript">
+            var wsocket;    // Websocket connection
+            var userName;   // User's name
+            var textarea;   // Chat area
+            var wsconsole;  // Websocket console area
+            var userlist;   // User list area
+            /* Connect to the Websocket endpoint
+             * Set a callback for incoming messages */
+            function connect() {
+                textarea = document.getElementById("textarea");
+                wsconsole = document.getElementById("wsconsole");
+                userlist = document.getElementById("userlist");
+                wsocket = new WebSocket("ws://localhost:8080/websocketbot/websocketbot");
+                wsocket.onmessage = onMessage;
+                document.getElementById("name").focus();
+                document.getElementById("consolediv").style.visibility = 'hidden';
+            }
+            /* Callback function for incoming messages
+             * evt.data contains the message
+             * Update the chat area, user's area and Websocket console */
+            function onMessage(evt) {
+                var logo = new Array();
+                var line = "";
+                /* Parse the message into a JavaScript object */
+                var msg = JSON.parse(evt.data);
+                if (msg.type === "chat") {
+                    line = msg.name + ": ";
+                    if (msg.target.length > 0)
+                        line += "@" + msg.target + " ";
+                    line += msg.message + "\n";
+                    /* Update the chat area */
+                    textarea.value += "" + line;
+                } else if (msg.type === "info") {
+                    line = "[--" + msg.info + "--]\n";
+                    /* Update the chat area */
+                    textarea.value += "" + line;
+                } else if (msg.type === "users") {
+                }
+                textarea.scrollTop = 999999;
+                /* Update the Websocket console area */
+                wsconsole.value += "-> " + evt.data + "\n";
+                wsconsole.scrollTop = 999999;
+            }
+            /* Send a join message to the server */
+            function sendJoin() {
+                var input = document.getElementById("input");
+                var name = document.getElementById("name");
+                var join = document.getElementById("join");
+                var jsonstr;
+                if (name.value.length > 0) {
+                    /* Create a message as a JavaScript object */
+                    var joinMsg = {};
+                    joinMsg.type = "join";
+                    joinMsg.name = name.value;
+                    /* Convert the message to JSON */
+                    jsonstr = JSON.stringify(joinMsg);
+                    /* Send the JSON text */
+                    wsocket.send(jsonstr);
+                    /* Disable join controls */
+                    name.disabled = true;
+//                    name.style.backgroundImage="url('resources/image/Capture.JPG')";
+//                    name.setAttribute("style.background-image","url(resources/image/Capture.JPG)");
+                    join.disabled = true;
+                    input.disabled = false;
+                    userName = name.value;
+                    /* Update the Websocket console area */
+                    wsconsole.value += "<- " + jsonstr + "\n";
+                    wsconsole.scrollTop = 999999;
+                }
+            }
+            /* Send a chat message to the server (press ENTER on the input area) */
+            function sendMessage(evt) {
+                var input = document.getElementById("input");
+                var jsonstr;
+                var msgstr;
+                if (evt.keyCode === 13 && input.value.length > 0) {
+                    //document.getElementById("map").contentDocument.getElementById("cityName").setAttribute("value",input.value);
+                    //document.getElementById("map").contentDocument.getElementById("globalSearch").click();
+                    /* Create a chat message as a JavaScript object */
+                    var chatMsg = {};
+                    chatMsg.type = "chat";
+                    chatMsg.name = userName;
+                    msgstr = input.value;
+                    chatMsg.target = getTarget(msgstr.replace(/,/g, ""));
+                    chatMsg.message = cleanTarget(msgstr);
+                    chatMsg.message = chatMsg.message.replace(/(\r\n|\n|\r)/gm, "");
+                    /* Convert the object to JSON */
+                    jsonstr = JSON.stringify(chatMsg);
+                    /* Send the message as JSON text */
+                    wsocket.send(jsonstr);
+                    input.value = "";
+                    /* Update the Websocket console area */
+                    wsconsole.value += "<- " + jsonstr + "\n";
+                    wsconsole.scrollTop = 999999;
+                }
+            }
+            /* Send a join message if the user presses ENTER in the name area */
+            function checkJoin(evt) {
+                var name = document.getElementById("name");
+                var input = document.getElementById("input");
+                if (evt.keyCode === 13 && name.value.length > 0) {
+                    sendJoin();
+                    input.focus();
+                }
+            }
+            /* Get the @User (target) for a message */
+            function getTarget(str) {
+                var arr = str.split(" ");
+                var target = "";
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i].charAt(0) === '@') {
+                        target = arr[i].substring(1, arr[i].length);
+                        target = target.replace(/(\r\n|\n|\r)/gm, "");
+                    }
+                }
+                if (target === "")
+                {
+                    target = "System";
+                }
+                return target;
+            }
+            /* Remove the @User (target) from a message */
+            function cleanTarget(str) {
+                var arr = str.split(" ");
+                var cleanstr = "";
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i].charAt(0) !== '@')
+                        cleanstr += arr[i] + " ";
+                }
+                return cleanstr.substring(0, cleanstr.length - 1);
+            }
+            /* Show or hide the WebSocket console */
+            function showHideConsole() {
+                var chkbox = document.getElementById("showhideconsole");
+                var consolediv = document.getElementById("consolediv");
+                if (chkbox.checked)
+                    consolediv.style.visibility = 'visible';
+                else
+                    consolediv.style.visibility = 'hidden';
+            }
+            /* Call connect() when the page first loads */
+            window.addEventListener("load", connect, false);
+        </script>
+        <script type="text/javascript">
+            function test()
+            {
+//                alert("success");
+//               alert(document.selection.createRange().text);
+                //alert(window.getSelection().toString());
+                document.getElementById("map").contentDocument.getElementById("cityName").setAttribute("value", window.getSelection().toString());
+                document.getElementById("map").contentDocument.getElementById("globalSearch").click();
+            }
+        </script>
+        <script type="text/javascript">
+            function clearTextArea(e) {
+                if (!e)
+                    e = window.event;
+                if ((e.keyCode || e.which) === 46) {
+                    document.getElementById("textarea").value = "System:尊敬的用户，您可以直接输入景点名称，如\"长城\"进行查询，或者输入区域名称，如\"河南\"查询河南的所有景点；"
+                            + "如欲查询票价在指定范围内的景点信息，可输入\"河南票价>[<]50的景点\"，或\"河南票价在50~60的景点\";"
+                            + "完成查询后，您可以直接用鼠标选中景点名称，地图定位功能将为您实时显示景点地理位置的详细信息.\n";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div style="text-align: center">
+            <!--<h1 style="color:red;font-weight:bold">国内景点自助查询系统</h1>-->
+            <img src="resources/image/1904.jpg" alt="top" />
+        </div>
+        <br>
+        <div>
+            <div style="float: left;width:50%">
+                <!--用户名: <input style="background:transparent;border:1px solid #ffffff" class="series" id="name" type="text" size="70" maxlength="20" onkeyup="checkJoin(event);"/>--> 
+                Nickname:&nbsp;&nbsp;&nbsp;<input class="series" id="name" type="text" size="60" maxlength="20" onkeyup="checkJoin(event);"/>&nbsp;&nbsp;&nbsp;&nbsp;
+               <!--<input class="series" id="name" type="text" size="60" maxlength="20" onkeyup="checkJoin(event);"/>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <input type="submit" class="classname" id="join" value="Enter" onclick="sendJoin();"/><br/>
+            </div>
+            <div style="float:left;width:50%">
+                Search：&nbsp;&nbsp;&nbsp;<input class="series" id="input" size="76" disabled onkeyup="sendMessage(event);"/><br/>
+            </div>
+        </div>
+        <div>
+            <br><br>
+            <div style="float: left;width:50%;">
+                <!--                <fieldset>
+                                    <legend>地图定位</legend>-->
+                <iframe id="map" src="map.html" style="width:650px;height:482px"></iframe>
+                <!--</fieldset>-->
+            </div>
+            <div style="float:left;width: 50%;">
+                <!--                <fieldset>
+                                    <legend>交互信息</legend>-->
+                <textarea onkeydown="clearTextArea(event)" id="textarea" onmouseup="test()" cols="68" rows="23" readonly style="resize:none;background-image: url(resources/image/149139_800x600.jpg)"></textarea>
+                <!--</fieldset>-->
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div style="text-align:center;color: black">天津市卫津路94号 [300071]  津教备0061号 津ICP备12003308号-1&nbsp&nbsp&nbsp
+            <img alt="follow us" src="resources/image/qq.png" width="20" height="20"/>&nbsp
+            <img alt="follow us" src="resources/image/micromsg.png" width="25" height="20"/>&nbsp
+            <img alt="follow us" src="resources/image/sina.jpg" width="25" height="20"/>&nbsp
+            <img alt="follow us" src="resources/image/msn.png" width="20" height="20"/>&nbsp
+        </div>
+<!--        <input name="email" type="text" id="email" style="height:19;border-top: 1px solid #808080;border-right: 1px solid #D4D0C8;border-bottom: 1px solid #D4D0C8;border-left: 1px solid #808080;" value="" size="29">
+        <br>
+        <textarea name="content" cols="36" rows="8" id="content" style="border: 1 solid #888888;LINE-HEIGHT:18px;padding: 3px;"></textarea>
+        <textarea   style="border:   #FF0000   1px   solid;   overflow:   visible;   color:   #FFFFFF;   background-image:   url(http://expert.csdn.net/images/csdn.gif)"></textarea>-->
+    </body>
+</html>

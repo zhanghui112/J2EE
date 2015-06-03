@@ -1,0 +1,12 @@
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\decoders\MessageDecoder.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\encoders\ChatMessageEncoder.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\BotEndpoint.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\encoders\UsersMessageEncoder.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\messages\JoinMessage.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\messages\ChatMessage.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\messages\UsersMessage.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\messages\InfoMessage.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\encoders\JoinMessageEncoder.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\BotBean.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\encoders\InfoMessageEncoder.java
+C:\Setup Files\glassfish4\docs\javaee-tutorial\examples\web\websocket\websocketbot\src\main\java\javaeetutorial\web\websocketbot\messages\Message.java

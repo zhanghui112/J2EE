@@ -1,0 +1,119 @@
+/**
+ * Copyright (c) 2014 Oracle and/or its affiliates. All rights reserved.
+ *
+ * You may not modify, use, reproduce, or distribute this software except in
+ * compliance with  the terms of the License at:
+ * http://java.net/projects/javaeetutorial/pages/BerkeleyLicense
+ */
+body {
+    background-repeat:repeat;
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    font-weight: bold;
+    margin: 10px;
+}
+
+
+/*body {
+    background-repeat:repeat;
+    font-size: 12px;
+    font-family: arial,"Hiragino Sans GB","Microsoft Yahei",sans-serif;
+    font-weight: bold;
+    margin: 10px;
+}*/
+
+textArea{
+    font-size: 18px;
+    font-family:serif;
+    font-weight:bold;
+    color: lime;
+}
+input[type="text"]:disabled
+{ 
+    background-color: red;
+    /*background-color:rgba(0,0,0,0.1);*/
+}
+
+.series{
+    /*background-color: palegreen;*/
+    /*background-color: khaki;*/
+    background-image: url("../image/Capture.JPG");
+    background-color:rgba(0,0,0,0.1);
+    /*background-color: lime;*/
+    /*background-color:rgba(0,0,0,0.1);*/
+}
+
+.clear{
+    clear:both;
+}
+
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    //border-bottom: 1px solid #AFAFAF; 
+    text-align: center;
+    font-size:  32px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color:red;
+}
+
+a:link, a:visited {
+    color: #045491;
+    font-weight : bold;
+    text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+    color: #045491;
+    font-weight : bold;
+    text-decoration : underline;
+}
+
+.classname {
+    -moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+    box-shadow:inset 0px 1px 0px 0px #fce2c1;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #fb9e25) );
+    background:-moz-linear-gradient( center top, #ffc477 5%, #fb9e25 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25');
+    background-color:#ffc477;
+    -webkit-border-top-left-radius:19px;
+    -moz-border-radius-topleft:19px;
+    border-top-left-radius:19px;
+    -webkit-border-top-right-radius:19px;
+    -moz-border-radius-topright:19px;
+    border-top-right-radius:19px;
+    -webkit-border-bottom-right-radius:19px;
+    -moz-border-radius-bottomright:19px;
+    border-bottom-right-radius:19px;
+    -webkit-border-bottom-left-radius:19px;
+    -moz-border-radius-bottomleft:19px;
+    border-bottom-left-radius:19px;
+    text-indent:2.82px;
+    border:1px solid #eeb44f;
+    display:inline-block;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:13px;
+    font-weight:bold;
+    font-style:normal;
+    height:22px;
+    line-height:22px;
+    width:58px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #cc9f52;
+}
+.classname:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477) );
+    background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
+    background-color:#fb9e25;
+}.classname:active {
+    position:relative;
+    top:1px;
+}
+
+
+
